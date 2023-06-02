@@ -28,7 +28,16 @@ const fetchSinglePlayer = async (playerId) => {
 
 const addNewPlayer = async (playerObj) => {
     try {
+        const response = await fetch ("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(playerObj),
+        });
 
+        const newPlayer = await response.text();
+        return newPlayer;
     } catch (err) {
         console.error('Oops, something went wrong with adding that player!', err);
     }
@@ -107,7 +116,7 @@ const renderNewPlayerForm = () => {
     newFormEntry.style.fontWeight = "bold";
     newFormEntry.style.fontSize = "14pt";
    
-    // newFormEntry.addEventListener("submit", async (event) => {
+    // newFormEntry.addEventListener("submit", async (event) => {     //working on this part
     //     event.preventDefault();
     //     const name = 
     // })
