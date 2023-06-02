@@ -1,9 +1,3 @@
-console.log("test");
-console.log("test2");
-
-
-
-
 const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
 
@@ -86,11 +80,42 @@ const renderAllPlayers = (playerList) => {
  */
 const renderNewPlayerForm = () => {
     try {
-        
-    } catch (err) {
-        console.error('Uh oh, trouble rendering the new player form!', err);
+        const newPlayerForm = document.getElementById("new-player-form");
+        newPlayerForm.innerHTML = `
+            <form id="newFormEntry">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" />
+                <label for="cohortId">Cohort ID:</label>
+                <input type="text" name="cohort" id="cohortID" />
+                <label for="id">ID:</label>
+                <input type="text" name="id" id="playerID" />
+                <label for="imageUrl">Image URL:</label>
+                <input type="text" name="imageUrl" id="imageUrl />
+                <label for="status">Status:</label>
+                <input type="text" name="status" id="status" />
+                <label for="teamId">Team ID:</label>
+                <input type="text" name="team" id="teamID" />
+                <label for="update">Updated At:</label>
+                <input type="text" name="update" id="updateAt" />
+                <button type="submit" id="submitButton">Submit</button>
+            </form>
+        `;
+
+    //styles for the form
+    const newFormEntry = document.getElementById("newFormEntry");
+    newFormEntry.style.fontFamily = "sans-serif";
+    newFormEntry.style.fontWeight = "bold";
+    newFormEntry.style.fontSize = "14pt";
+   
+    // newFormEntry.addEventListener("submit", async (event) => {
+    //     event.preventDefault();
+    //     const name = 
+    // })
+
+    } catch (error) {
+
     }
-}
+} //last curly to renderNewPlayer Form
 
 const init = async () => {
     const players = await fetchAllPlayers();
