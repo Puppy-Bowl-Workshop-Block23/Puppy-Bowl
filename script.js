@@ -26,6 +26,7 @@ const fetchSinglePlayer = async (playerId) => {
     }
 };
 
+//add new player
 const addNewPlayer = async (playerObj) => {
     try {
         const response = await fetch ("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players", {
@@ -96,8 +97,8 @@ const renderNewPlayerForm = () => {
                 <input type="text" name="name" id="name" />
                 <label for="cohortId">Cohort ID:</label>
                 <input type="text" name="cohort" id="cohortID" />
-                <label for="id">ID:</label>
-                <input type="text" name="id" id="playerID" />
+                <label for="theId">ID:</label>
+                <input type="text" name="theId" id="playerID" />
                 <label for="imageUrl">Image URL:</label>
                 <input type="text" name="imageUrl" id="imageUrl />
                 <label for="status">Status:</label>
@@ -114,7 +115,7 @@ const renderNewPlayerForm = () => {
     const newFormEntry = document.getElementById("newFormEntry");
     newFormEntry.style.fontFamily = "sans-serif";
     newFormEntry.style.fontWeight = "bold";
-    newFormEntry.style.fontSize = "14pt";
+    newFormEntry.style.fontSize = "12pt";
    
     // newFormEntry.addEventListener("submit", async (event) => {     //working on this part
     //     event.preventDefault();
@@ -122,10 +123,11 @@ const renderNewPlayerForm = () => {
     // })
 
     } catch (error) {
-
+        console.log("Error:", error);
     }
 } //last curly to renderNewPlayer Form
 
+//init functions
 const init = async () => {
     const players = await fetchAllPlayers();
     renderAllPlayers(players);
