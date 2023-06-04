@@ -2,16 +2,20 @@ const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = 'YOUR COHORT NAME HERE';
+const cohortName = '2302-ACC-CT-WEB-PT-B';
 // Use the APIURL variable for fetch requests
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
+const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 
 /**
  * It fetches all players from the API and returns them
  * @returns An array of objects.
  */
-const fetchAllPlayers = async () => { //testing for Maria
+const fetchAllPlayers = async () => {
     try {
+        //fetch all participants
+        const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players");
+        const result = await response.json();
+        return result;
 
     } catch (err) {
         console.error('Uh oh, trouble fetching players!', err);
@@ -67,8 +71,31 @@ const removePlayer = async (playerId) => {
  */
 const renderAllPlayers = (playerList) => {
     try {
+       
+        //const playerContainer = document.getElementById("all-players-container");
+        playerContainer.innerHTML = '';
+        playerList.forEach((player) => {
+            const puppyElement = document.createElement('div')
+            puppyElement.classList.add('player');
+            puppyElement.innerHTML = `
+            <h2>${player.name}</h2>
+            <p>${player.breed}</p>
+            <p>${player.status}</p>
+            <p>${player.imageURL}</p>
+            <p>${player.createdAt}</p>
+            <p>${player.updatedAt}</p>
+            <p>${player.teamId}</p>
+            <p>${player.cohortId}</p>
+            <button class="details-button" data-id="${player.id}">See Details</button>
+            <button class="delete-button" data-id="${player.id}">Remove from roster</button>
+            `;
+            
+            playerContainer.appendChild(puppyElement);
+        })
         
-    } catch (err) {
+        }
+       
+     catch (err) {
         console.error('Uh oh, trouble rendering players!', err);
     }
 };
