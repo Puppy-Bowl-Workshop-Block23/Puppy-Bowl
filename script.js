@@ -13,9 +13,9 @@ const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 const fetchAllPlayers = async () => {
     try {
         //fetch all participants
-        const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players");
+        const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT-B/players");
         const result = await response.json();
-        return result;
+        return result.data.players;
 
     } catch (err) {
         console.error('Uh oh, trouble fetching players!', err);
@@ -69,23 +69,28 @@ const removePlayer = async (playerId) => {
  * @param playerList - an array of player objects
  * @returns the playerContainerHTML variable.
  */
+
+//const renderAllPlayers = (playerList) => {
+
+
 const renderAllPlayers = (playerList) => {
     try {
-       
-        //const playerContainer = document.getElementById("all-players-container");
-        playerContainer.innerHTML = '';
+        const players = fetchAllPlayers();
+        const playerContainer = document.getElementById("all-players-container");
+        players.innerHTML = '';
         playerList.forEach((player) => {
+            
             const puppyElement = document.createElement('div')
             puppyElement.classList.add('player');
             puppyElement.innerHTML = `
             <h2>${player.name}</h2>
-            <p>${player.breed}</p>
-            <p>${player.status}</p>
-            <p>${player.imageURL}</p>
-            <p>${player.createdAt}</p>
-            <p>${player.updatedAt}</p>
-            <p>${player.teamId}</p>
-            <p>${player.cohortId}</p>
+            <p> Breed: ${player.breed}</p>
+            <p> Status: ${player.status}</p>
+            <img>${player.imageURL}</img>
+            <p> Created on: ${player.createdAt}</p>
+            <p> Updated on: ${player.updatedAt}</p>
+            <p> Team ID: ${player.teamId}</p>
+            <p> Cohort ID: ${player.cohortId}</p>
             <button class="details-button" data-id="${player.id}">See Details</button>
             <button class="delete-button" data-id="${player.id}">Remove from roster</button>
             `;
@@ -100,11 +105,6 @@ const renderAllPlayers = (playerList) => {
     }
 };
 
-
-/**
- * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
- * fetches all players from the database, and renders them to the DOM.
- */
 const renderNewPlayerForm = () => {
     try {
         
