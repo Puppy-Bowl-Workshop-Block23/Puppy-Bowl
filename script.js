@@ -24,7 +24,7 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
     try {
-
+        fetch(`https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/players/${playerId}`)
     } catch (err) {
         console.error(`Oh no, trouble fetching player #${playerId}!`, err);
     }
@@ -40,7 +40,7 @@ const addNewPlayer = async (playerObj) => {
 
 const removePlayer = async (playerId) => {
     try {
-
+        fetch(`${APIURL}/players/${playerId}`, { method: 'DELETE' });
     } catch (err) {
         console.error(
             `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -76,17 +76,17 @@ const removePlayer = async (playerId) => {
 const renderAllPlayers = (playerList) => {
     try {
         const players = fetchAllPlayers();
-        const playerContainer = document.getElementById("all-players-container");
+        //const playerContainer = document.getElementById("all-players-container");
         players.innerHTML = '';
         playerList.forEach((player) => {
-            
+
             const puppyElement = document.createElement('div')
             puppyElement.classList.add('player');
             puppyElement.innerHTML = `
             <h2>${player.name}</h2>
             <p> Breed: ${player.breed}</p>
             <p> Status: ${player.status}</p>
-            <img>${player.imageURL}</img>
+            <img src= ${player.imageUrl} width="300" height="600">
             <p> Created on: ${player.createdAt}</p>
             <p> Updated on: ${player.updatedAt}</p>
             <p> Team ID: ${player.teamId}</p>
@@ -94,20 +94,43 @@ const renderAllPlayers = (playerList) => {
             <button class="details-button" data-id="${player.id}">See Details</button>
             <button class="delete-button" data-id="${player.id}">Remove from roster</button>
             `;
-            
+
             playerContainer.appendChild(puppyElement);
+
+            
+// IN PROGRESS
+
+            // const detailsButton = puppyElement.querySelector('.details-button');
+            // detailsButton.addEventListener('click', async (event) => {
+
+            //   //  const details = document.getElementsByTagName(partyDetailsElement);
+            // });
+
+
+
+            // const deleteButton = puppyElement.querySelector('.delete-button');
+            // deleteButton.addEventListener('click', async (event) => {
+            //     await removePlayer(event.player.id);
+            //     const deleted = document.getElementById(player.id)
+            //     deleted.remove();
+
+            // });
+
+
+
+
         })
-        
-        }
-       
-     catch (err) {
+
+    }
+
+    catch (err) {
         console.error('Uh oh, trouble rendering players!', err);
     }
 };
 
 const renderNewPlayerForm = () => {
     try {
-        
+
     } catch (err) {
         console.error('Uh oh, trouble rendering the new player form!', err);
     }
