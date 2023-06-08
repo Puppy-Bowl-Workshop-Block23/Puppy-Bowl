@@ -2,7 +2,7 @@ const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = 'YOUR COHORT NAME HERE';
+const cohortName = '2302-ACC-CT-WEB-PT-B';
 // Use the APIURL variable for fetch requests
 const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
@@ -20,7 +20,11 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
     try {
-
+        const API_PLAYER = "https://fsa-puppy-bowl. herokuapp. com/ap1/2302-ACC-CT-WEB-PT/players"
+        const response = await fetch (`${API_PLAYER}/${playerId}`);
+        const onePlayer = await response.json();
+        console.log("One Player:", onePlayer);
+        return onePlayer;
     } catch (err) {
         console.error(`Oh no, trouble fetching player #${playerId}!`, err);
     }
@@ -73,7 +77,15 @@ const renderAllPlayers = (playerList) => {
     }
 };
 
+const renderSinglePlayer = (player) => {
+    const newPlayerCard = document.createElement("div")
+    newPlayerCard.id = player.id;
+    playerContainer.appendChild(newPlayerCard);
 
+    const newPlayerName = document.createElement("h1");
+    newPlayerCard.appendChild(newPlayerName);
+    newPlayerName.innerHTML = player.name
+}
 /**
  * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
  * fetches all players from the database, and renders them to the DOM.
