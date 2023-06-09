@@ -141,7 +141,7 @@ const renderNewPlayerForm = async () => {
         <input type="text" name="cohortId" id="cohortId" />
         <label for="createdAt">Created At:</label>
         <input type="text" name="createdAt" id="createdAt" />
-        <label for="id">ID:</label>
+        <label for="id">Player ID:</label>
         <input type="text" name="id" id="id" />
         <label for="imageUrl">Image URL:</label>
         <input type="text" name="imageUrl" id="imageUrl" />
