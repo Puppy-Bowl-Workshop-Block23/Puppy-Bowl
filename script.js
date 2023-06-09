@@ -16,7 +16,7 @@ const newPlayerFormContainer = document.getElementById('new-player-form');
 const fetchAllPlayers = async () => {
     try {
         //fetch all participants
-        const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT-B/players");
+        const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players");
         const result = await response.json();
         return result.data.players;
 
@@ -78,7 +78,6 @@ const removePlayer = async (playerId) => {
 const renderAllPlayers = (playerList) => {
     try {
         const players = fetchAllPlayers();
-        //const playerContainer = document.getElementById("all-players-container");
         players.innerHTML = '';
         playerList.forEach((player) => {
 
