@@ -67,14 +67,14 @@ const fetchSinglePlayer = async (playerId) => {
 };
 
 //add new player
-const addNewPlayer = async (playerObj) => {
+const addNewPlayer = async (player) => {
     try {
         const response = await fetch ("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(playerObj),
+            body: JSON.stringify(player),
         });
 
         const newPlayer = await response.text();
@@ -128,51 +128,76 @@ const renderAllPlayers = (playerList) => {
  * It renders a form to the DOM, and when the form is submitted, it adds a new player to the database,
  * fetches all players from the database, and renders them to the DOM.
  */
+
+//Create a Form, and Render a Player, when form is filled out
 const renderNewPlayerForm = () => {
     try {
-        const newPlayerForm = document.getElementById("new-player-form");
-        newPlayerForm.innerHTML = `
-            <form id="newFormEntry">
-                <label for="name">Name:</label>
-                <input type="text" name="name" id="name" />
-                <label for="cohortId">Cohort ID:</label>
-                <input type="text" name="cohort" id="cohortID" />
-                <label for="theId">ID:</label>
-                <input type="text" name="theId" id="playerID" />
-                <label for="imageUrl">Image URL:</label>
-                <input type="text" name="imageUrl" id="imageUrl />
-                <label for="status">Status:</label>
-                <input type="text" name="status" id="status" />
-                <label for="teamId">Team ID:</label>
-                <input type="text" name="team" id="teamID" />
-                <label for="update">Updated At:</label>
-                <input type="text" name="update" id="updateAt" />
-                <button type="submit" id="submitButton">Submit</button>
-            </form>
-        `;   
+    const newPlayerForm = document.getElementById("new-player-form");
+    newPlayerForm.innerHTML = `
+        <form id="newFormEntry">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" />
+        <label for="breed">Breed:</label>
+        <input type="text" name="breed" id="breed" />
+        <label for="cohortId">Cohort ID:</label>
+        <input type="text" name="cohortId" id="cohortId" />
+        <label for="createdAt">Created At:</label>
+        <input type="text" name="createdAt" id="createdAt" />
+        <label for="id">ID:</label>
+        <input type="text" name="id" id="id" />
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" name="imageUrl" id="imageUrl" />
+        <label for="status">Status:</label>
+        <input type="text" name="status" id="status" />
+        <label for="teamId">Team ID:</label>
+        <input type="text" name="teamId" id="teamId"/>
+        <label for="update">Updated At:</label>
+        <input type="text" name="updatedAt" id="updateAt" />
+        <button type="submit" id="submitButton">Submit</button>
+    </form>
+ 
+`;
+newPlayerForm.addEventListener("submit", async (event) => {
+    event.preventDefault();  //The method preventDefault() is a built-in method in JavaScript that is specifically used to prevent the default behavior of an event.
+    const name = document.getElementById("name").value;
+    const breed = document.getElementById("breed").value;
+    const cohortId = document.getElementById("cohortId").value;
+    const createdAt = document.getElementById("createdAt").value;
+    const id = document.getElementById("id").value;
+    const imageUrl = document.getElementById("imageUrl").value;
+    const status = document.getElementById("status").value;
+    const teamId = document.getElementById("teamId").value;
+    const updatedAt = document.getElementById("updatedAt").value;
 
-    //styles for the form
-    const newFormEntry = document.getElementById("newFormEntry");
-    newFormEntry.style.fontFamily = "sans-serif";
-    newFormEntry.style.fontWeight = "bold";
-    newFormEntry.style.fontSize = "12pt";
-   
-    // newFormEntry.addEventListener("submit", async (event) => {     //working on this part
-    //     event.preventDefault();
-    //     const name = 
-    // })
+    const newPlayer = {  //assigning a player, to the newPlayer variable,
+        name: name,
+        breed: breed,
+        status: status,
+        cohortId: cohortId,
+        createdAt: createdAt,
+        id: id,
+        imageUrl: imageUrl,
+        teamId: teamId,
+        updatedAt: updatedAt,
+    };
+
+    const form = document.querySelector("form");
+    form.innerHTML = `
+        <p>New Player Has Been Added To The Roster</p>
+        </p>Name: ${newPlayer.name}</p>
+        </p>Breed: ${newPlayer.breed}</p>
+        </p>CohortId: ${newPlayer.cohortId}</p>
+        </p>Created At:${newPlayer.createdAt}</p>
+        </p>Player Id: ${newPlayer.id}</p>
+        </p>Image Url: ${newPlayer.imageUrl}</p>
+        </p>$Team Id: ${newPlayer.teamId}</p>
+        </p>Updated at: ${newPlayer.updatedAt}</p>
+    `;
+}); //last one of for addEventListener
 
     } catch (error) {
-        console.log("Error:", error);
+     console.log("Error", error);   
     }
-} //last curly to renderNewPlayer Form
-
-//init functions
-const init = async () => {
-    const players = await fetchAllPlayers();
-    renderAllPlayers(players);
-
-    renderNewPlayerForm();
 }
 
-init();
+
