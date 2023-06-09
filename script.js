@@ -128,7 +128,7 @@ const renderAllPlayers = (playerList) => {
 
 //Create a Form, and Render a Player, when form is filled out
 
-const renderNewPlayerForm = () => {
+const renderNewPlayerForm = async () => {
     try {
     const newPlayerForm = document.getElementById("new-player-form");
     newPlayerForm.innerHTML = `
@@ -176,7 +176,7 @@ newPlayerForm.addEventListener("submit", async (event) => {
         id: id,
         imageUrl: imageUrl,
         teamId: teamId,
-        updatedAt: updatedAt,
+        updatedAt: updatedAt
     };
 
     const form = document.querySelector("form");
