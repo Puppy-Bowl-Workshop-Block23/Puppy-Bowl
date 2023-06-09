@@ -42,8 +42,7 @@ const playerContainer = document.getElementById("all-players-container");
 const cohortName = "2302-ACC-CT-WEB-PT-B";  //our cohort, assigned to a variable
 
 //assign the api to a variable
-const API_URL = "https://fsa-puppy-bowl.herokuapp.com";
-
+const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 /**
  * It fetches all players from the API and returns them
  * @returns An array of objects.
