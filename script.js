@@ -1,15 +1,50 @@
-console.log("test");
+//Block 23: Puppy Bowl 
+
+/*
+
+    Requirements:
+    
+    * GitHub Project
+        - Detailed planning tickets with task descriptions for each one
+        - Demonstration that each team member made some contribution on the planning of tickets.
+        - Each student in the pair must have at least one commit towards the final result, in separate branches
+
+        - A Github repository containing all relevant code for the project
+        - Updated Github repository with new commits
 
 
+    * HTML Front-end Requirements   
+        - A full HTML document with two div's in which to dynamically render content
+        - One div as a new Puppy Bowl player form input
+        - One div in which to render all current Puppy Bowl participants 
 
 
-const playerContainer = document.getElementById('all-players-container');
-const newPlayerFormContainer = document.getElementById('new-player-form');
+    * CSS Front-end Requirements
+        - Form is styled and easy to use
+        - All Puppy Bowl players are rendered on card elements with their information
 
-// Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = 'YOUR COHORT NAME HERE';
-// Use the APIURL variable for fetch requests
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
+    * JavaScript Requirements
+        - Use the DOM to generate and manipulate HTML and styles according to the requirements
+        - Use functions to isolate and re-use code
+        - Use ES6 modules to export and import methods and properties
+        - Demonstrates the use of fetch, async, and await to leverage CRUD against a REST API to perform common functions of a website
+
+    * Functionality Requirements
+        - Fetching and rendering all puppy players in the browser
+        - Viewing a single puppy player and their details
+        - Remove a puppy from the roster
+
+*/
+
+//get div's from html, assigning them a variable
+const playerContainer = document.getElementById("all-players-container");
+const newPlayerFormContainer = document.getElementById("new-player-form");
+
+
+const cohortName = "2302-ACC-CT-WEB-PT-B";  //our cohort, assigned to a variable
+
+//assign the api to a variable
+const API_URL = "https://fsa-puppy-bowl.herokuapp.com";
 
 /**
  * It fetches all players from the API and returns them
@@ -31,9 +66,19 @@ const fetchSinglePlayer = async (playerId) => {
     }
 };
 
+//add new player
 const addNewPlayer = async (playerObj) => {
     try {
+        const response = await fetch ("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(playerObj),
+        });
 
+        const newPlayer = await response.text();
+        return newPlayer;
     } catch (err) {
         console.error('Oops, something went wrong with adding that player!', err);
     }
@@ -85,12 +130,44 @@ const renderAllPlayers = (playerList) => {
  */
 const renderNewPlayerForm = () => {
     try {
-        
-    } catch (err) {
-        console.error('Uh oh, trouble rendering the new player form!', err);
-    }
-}
+        const newPlayerForm = document.getElementById("new-player-form");
+        newPlayerForm.innerHTML = `
+            <form id="newFormEntry">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" />
+                <label for="cohortId">Cohort ID:</label>
+                <input type="text" name="cohort" id="cohortID" />
+                <label for="theId">ID:</label>
+                <input type="text" name="theId" id="playerID" />
+                <label for="imageUrl">Image URL:</label>
+                <input type="text" name="imageUrl" id="imageUrl />
+                <label for="status">Status:</label>
+                <input type="text" name="status" id="status" />
+                <label for="teamId">Team ID:</label>
+                <input type="text" name="team" id="teamID" />
+                <label for="update">Updated At:</label>
+                <input type="text" name="update" id="updateAt" />
+                <button type="submit" id="submitButton">Submit</button>
+            </form>
+        `;   
 
+    //styles for the form
+    const newFormEntry = document.getElementById("newFormEntry");
+    newFormEntry.style.fontFamily = "sans-serif";
+    newFormEntry.style.fontWeight = "bold";
+    newFormEntry.style.fontSize = "12pt";
+   
+    // newFormEntry.addEventListener("submit", async (event) => {     //working on this part
+    //     event.preventDefault();
+    //     const name = 
+    // })
+
+    } catch (error) {
+        console.log("Error:", error);
+    }
+} //last curly to renderNewPlayer Form
+
+//init functions
 const init = async () => {
     const players = await fetchAllPlayers();
     renderAllPlayers(players);
