@@ -38,8 +38,6 @@
 
 //get div's from html, assigning them a variable
 const playerContainer = document.getElementById("all-players-container");
-const newPlayerFormContainer = document.getElementById("new-player-form");
-
 
 const cohortName = "2302-ACC-CT-WEB-PT-B";  //our cohort, assigned to a variable
 
@@ -82,7 +80,7 @@ const addNewPlayer = async (player) => {
     } catch (err) {
         console.error('Oops, something went wrong with adding that player!', err);
     }
-};
+}; //last curly to addNewPlayer
 
 const removePlayer = async (playerId) => {
     try {
@@ -130,6 +128,7 @@ const renderAllPlayers = (playerList) => {
  */
 
 //Create a Form, and Render a Player, when form is filled out
+
 const renderNewPlayerForm = () => {
     try {
     const newPlayerForm = document.getElementById("new-player-form");
@@ -169,7 +168,7 @@ newPlayerForm.addEventListener("submit", async (event) => {
     const teamId = document.getElementById("teamId").value;
     const updatedAt = document.getElementById("updatedAt").value;
 
-    const newPlayer = {  //assigning a player, to the newPlayer variable,
+    const newPlayer = {     // - - ??? Do you have to do something with this object ??? 
         name: name,
         breed: breed,
         status: status,
@@ -194,10 +193,23 @@ newPlayerForm.addEventListener("submit", async (event) => {
         </p>Updated at: ${newPlayer.updatedAt}</p>
     `;
 }); //last one of for addEventListener
-
     } catch (error) {
      console.log("Error", error);   
     }
 }
+
+//initiate the function
+const init = async () => {
+    try {
+        renderNewPlayerForm();
+       
+    } catch (error) {
+        console.log("Error", error);
+    }
+}
+
+init();
+
+
 
 
