@@ -2,9 +2,12 @@ const playerContainer = document.getElementById('all-players-container');
 const newPlayerFormContainer = document.getElementById('new-player-form');
 
 // Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = '2302-ACC-CT-WEB-PT-B';
+
+//const cohortName = '2302-ACC-CT-WEB-PT-B';
+
 // Use the APIURL variable for fetch requests
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
+
+//const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 
 /**
  * It fetches all players from the API and returns them
@@ -24,7 +27,7 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
     try {
-        fetch(`https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/players/${playerId}`)
+        
     } catch (err) {
         console.error(`Oh no, trouble fetching player #${playerId}!`, err);
     }
@@ -40,7 +43,7 @@ const addNewPlayer = async (playerObj) => {
 
 const removePlayer = async (playerId) => {
     try {
-        fetch(`${APIURL}/players/${playerId}`, { method: 'DELETE' });
+        
     } catch (err) {
         console.error(
             `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -74,8 +77,6 @@ const removePlayer = async (playerId) => {
 
 const renderAllPlayers = (playerList) => {
     try {
-
-
         const players = fetchAllPlayers();
         //const playerContainer = document.getElementById("all-players-container");
         players.innerHTML = '';
@@ -131,13 +132,13 @@ const renderAllPlayers = (playerList) => {
     }
 };
 
-const renderNewPlayerForm = () => {
-    try {
+// const renderNewPlayerForm = () => {
+//     try {
 
-    } catch (err) {
-        console.error('Uh oh, trouble rendering the new player form!', err);
-    }
-}
+//     } catch (err) {
+//         console.error('Uh oh, trouble rendering the new player form!', err);
+//     }
+// }
 
 const init = async () => {
     const players = await fetchAllPlayers();
