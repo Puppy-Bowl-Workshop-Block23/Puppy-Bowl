@@ -70,11 +70,12 @@ const removePlayer = async (playerId) => {
  * @returns the playerContainerHTML variable.
  */
 
-//const renderAllPlayers = (playerList) => {
-
+//RENDER ALL CODE PLUS BUTTONS 
 
 const renderAllPlayers = (playerList) => {
     try {
+
+
         const players = fetchAllPlayers();
         //const playerContainer = document.getElementById("all-players-container");
         players.innerHTML = '';
@@ -96,8 +97,10 @@ const renderAllPlayers = (playerList) => {
             `;
 
             playerContainer.appendChild(puppyElement);
+        });
+    }
+    
 
-            
 // IN PROGRESS
 
             // const detailsButton = puppyElement.querySelector('.details-button');
@@ -119,9 +122,9 @@ const renderAllPlayers = (playerList) => {
 
 
 
-        })
+    //     })
 
-    }
+    // }
 
     catch (err) {
         console.error('Uh oh, trouble rendering players!', err);
