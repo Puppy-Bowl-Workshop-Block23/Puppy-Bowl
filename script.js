@@ -149,7 +149,7 @@ const renderNewPlayerForm = () => {
                 <input type="text" name="update" id="updateAt" />
                 <button type="submit" id="submitButton">Submit</button>
             </form>
-        `;
+        `;   
 
     //styles for the form
     const newFormEntry = document.getElementById("newFormEntry");
