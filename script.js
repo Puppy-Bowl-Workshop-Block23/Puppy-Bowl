@@ -66,7 +66,7 @@ const fetchSinglePlayer = async (playerId) => {
 //add new player
 const addNewPlayer = async (player) =>{
     try {
-        const response = await fetch (`${API_URL}/${cohortName}/players` , {  //maybe this is wrong
+        const response = await fetch (`${API_URL}${cohortName}/players` , {  //maybe this is wrong
             method: "POST", //creating a post to the server
             headers: {
                 "Content-Type": "application/json",  //This tells the server that the request body will be in JSON format
