@@ -1,19 +1,72 @@
-*{
+/*html*/
+
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
- 
 }
-body{
- 
+
+html {
+  background-color: #F7DDD4;
+}
+
+/*body*/ 
+body {
     display: flex;
     flex-wrap: wrap;
     background-color: rgb(253, 208, 253);
     justify-content: center;
 }
 
-
-img{
+img {
   height: 200px;
   width: 200px;
 }
+
+/*headings*/
+h1 {
+  font-family: 'Righteous', cursive;
+  text-align: center;
+  margin-top: 40px;
+  text-decoration: underline;
+  font-size: 28pt;
+}
+
+/*form*/
+label {
+  font-size: 14pt;
+}
+
+#newFormEntry {
+  width: 100%;
+  max-width: 1500px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+input {
+border: 2px solid black;
+border-radius: 5px;
+font-size: 12pt;
+}
+
+/*submit button*/
+#submitButton {
+  font-family: 'Righteous', cursive;
+  margin: 10px;
+  font-size: 12pt;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#submitButton:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
+
+
