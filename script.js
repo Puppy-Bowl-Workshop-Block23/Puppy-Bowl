@@ -1,10 +1,48 @@
-const playerContainer = document.getElementById('all-players-container');
-const newPlayerFormContainer = document.getElementById('new-player-form');
+//Block 23: Puppy Bowl 
 
-// Add your cohort name to the cohortName variable below, replacing the 'COHORT-NAME' placeholder
-const cohortName = '2302-ACC-CT-WEB-PT-B';
-// Use the APIURL variable for fetch requests
-const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
+/*
+
+    Requirements:
+    
+    * GitHub Project
+        - Detailed planning tickets with task descriptions for each one
+        - Demonstration that each team member made some contribution on the planning of tickets.
+        - Each student in the pair must have at least one commit towards the final result, in separate branches
+
+        - A Github repository containing all relevant code for the project
+        - Updated Github repository with new commits
+
+
+    * HTML Front-end Requirements   
+        - A full HTML document with two div's in which to dynamically render content
+        - One div as a new Puppy Bowl player form input
+        - One div in which to render all current Puppy Bowl participants 
+
+
+    * CSS Front-end Requirements
+        - Form is styled and easy to use
+        - All Puppy Bowl players are rendered on card elements with their information
+        
+    * JavaScript Requirements
+        - Use the DOM to generate and manipulate HTML and styles according to the requirements
+        - Use functions to isolate and re-use code
+        - Use ES6 modules to export and import methods and properties
+        - Demonstrates the use of fetch, async, and await to leverage CRUD against a REST API to perform common functions of a website
+
+    * Functionality Requirements
+        - Fetching and rendering all puppy players in the browser
+        - Viewing a single puppy player and their details
+        - Remove a puppy from the roster 
+*/
+
+
+//get div's from html, assigning them a variable
+const playerContainer = document.getElementById("all-players-container");
+
+const cohortName = "2302-ACC-CT-WEB-PT-B"; // our cohort, assigned to variable
+
+//assign the api to a variable
+const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
 
 /**
  * It fetches all players from the API and returns them
@@ -20,21 +58,21 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
     try {
-        const API_PLAYER = "https://fsa-puppy-bowl. herokuapp. com/ap1/2302-ACC-CT-WEB-PT/players"
-        const response = await fetch (`${API_PLAYER}/${playerId}`);
-        const onePlayer = await response.json();
-        console.log("One Player:", onePlayer);
-        return onePlayer;
-    } catch (err) {
+        const APIPLAYER = "https://fsa-puppy-bowl.herokuapp.com/ap1/2302-ACC-CT-WEB-PT/player/4/";
+        const response = await fetch (`${APIPLAYER}/${playerId}`);
+        const singlePlayer = await response.json();
+        console.log("Single Player:", singlePlayer);
+        return singlePlayer;
+    } catch (error) {
         console.error(`Oh no, trouble fetching player #${playerId}!`, err);
     }
-};
+}
 
 const addNewPlayer = async (playerObj) => {
     try {
 
     } catch (err) {
-        console.error('Oops, something went wrong with adding that player!', err);
+        console.error('Oops, something went wrong with adding that player!',err);
     }
 };
 
@@ -80,9 +118,10 @@ const renderAllPlayers = (playerList) => {
 const renderSinglePlayer = (player) => {
     const newPlayerCard = document.createElement("div")
     newPlayerCard.id = player.id;
+    newPlayerCard.className = "player-card"
     playerContainer.appendChild(newPlayerCard);
 
-    const newPlayerName = document.createElement("h1");
+    const newPlayerName = document.createElement("h2");
     newPlayerCard.appendChild(newPlayerName);
     newPlayerName.innerHTML = player.name
 }
@@ -99,10 +138,10 @@ const renderNewPlayerForm = () => {
 }
 
 const init = async () => {
-    const players = await fetchAllPlayers();
-    renderAllPlayers(players);
+    const player = await fetchSinglePlayer();
+    renderSinglePlayer(player);
 
-    renderNewPlayerForm();
+    renderSinglePlayer();
 }
 
 init();
