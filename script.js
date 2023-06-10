@@ -58,13 +58,13 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
     try {
-        const APIPLAYER = "https://fsa-puppy-bowl.herokuapp.com/ap1/2302-ACC-CT-WEB-PT/player/4/";
+        const APIPLAYER = "https://fsa-puppy-bowl.herokuapp.com/ap1/2302-ACC-CT-WEB-PT/players/4/";
         const response = await fetch (`${APIPLAYER}/${playerId}`);
         const singlePlayer = await response.json();
-        console.log("Single Player:", singlePlayer);
-        return singlePlayer;
+        console.log("Single Player:", player);
+        return player;
     } catch (error) {
-        console.error(`Oh no, trouble fetching player #${playerId}!`, err);
+        console.error("${playerId}!", error);
     }
 }
 
