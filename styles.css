@@ -12,8 +12,8 @@ html{
 }
 body{
  
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    -ms-grid-column-align: center;
 }
 
 img {
@@ -67,4 +67,32 @@ font-size: 12pt;
   background-color: black;
 }
 
+.details-button{
+  font-family: 'Righteous', cursive;
+  font-size: 12pt;
+  margin:5px;
+  width: 105px;
+  height:30px;
+  border-radius: 5px;
+}
+.details-button:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
 
+.delete-button{
+  font-family: 'Righteous', cursive;
+  font-size: 12pt;
+  width: 175px;
+  height:30px;
+  border-radius: 5px;
+}
+.delete-button:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
+.player{
+  padding: 25px;
+}

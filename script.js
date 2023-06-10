@@ -143,32 +143,6 @@ const renderAllPlayers = (playerList) => {
             playerContainer.appendChild(puppyElement);
         });
     }
-    
-
-// IN PROGRESS
-
-            // const detailsButton = puppyElement.querySelector('.details-button');
-            // detailsButton.addEventListener('click', async (event) => {
-
-            //   //  const details = document.getElementsByTagName(partyDetailsElement);
-            // });
-
-
-
-            // const deleteButton = puppyElement.querySelector('.delete-button');
-            // deleteButton.addEventListener('click', async (event) => {
-            //     await removePlayer(event.player.id);
-            //     const deleted = document.getElementById(player.id)
-            //     deleted.remove();
-
-            // });
-
-
-
-
-    //     })
-
-    // }
 
     catch (err) {
         console.error('Uh oh, trouble rendering players!', err);
