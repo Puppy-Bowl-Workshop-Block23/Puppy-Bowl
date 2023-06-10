@@ -64,22 +64,31 @@ const fetchSinglePlayer = async (playerId) => {
 };
 
 //add new player
-const addNewPlayer = async (player) => {
+const addNewPlayer = async (player) =>{
     try {
-        const response = await fetch ("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players", {
-            method: "POST",
+        const response = await fetch (`${API_URL}/${cohortName}/players` , {  //maybe this is wrong
+            method: "POST", //creating a post to the server
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json",  //This tells the server that the request body will be in JSON format
             },
-            body: JSON.stringify(player),
-        });
+            body: JSON.stringify({
+                name: "Roxy",
+                breed: "Pit Terrier",
+                cohortId: 856,
+                id: 8520,
+                status: "field",
+                teamId: 20,
+                updatedAt: "2023-06-10T00:53:59.684Z"
+            }), //converts json() to string
 
-        const newPlayer = await response.text();
-        return newPlayer;
-    } catch (err) {
-        console.error('Oops, something went wrong with adding that player!', err);
+        }); //last curly of the fetch api 
+
+       const result = await response.json();
+       console.log(result);
+    } catch (error) {
+        console.log("Error", error);
     }
-}; //last curly to addNewPlayer
+};
 
 const removePlayer = async (playerId) => {
     try {
@@ -128,13 +137,14 @@ const renderAllPlayers = (playerList) => {
 
 //Create a Form, and Render a Player, when form is filled out
 
-const renderNewPlayerForm = async () => {
+//Creating a Form, and render a player 
+const renderNewPlayerForm = () => {
     try {
     const newPlayerForm = document.getElementById("new-player-form");
     newPlayerForm.innerHTML = `
-        <form id="newFormEntry">
+        <form class="newFormEntry" autocomplete="on">
         <label for="name">Name:</label>
-        <input type="text" name="name" id="name" />
+        <input type="text" name="dogsName" id="name" />
         <label for="breed">Breed:</label>
         <input type="text" name="breed" id="breed" />
         <label for="cohortId">Cohort ID:</label>
@@ -149,15 +159,19 @@ const renderNewPlayerForm = async () => {
         <input type="text" name="status" id="status" />
         <label for="teamId">Team ID:</label>
         <input type="text" name="teamId" id="teamId"/>
-        <label for="update">Updated At:</label>
-        <input type="text" name="updatedAt" id="updateAt" />
+        <label for="updatedAt">Updated At:</label>
+        <input type="text" name="updatedAt" id="updatedAt" />
         <button type="submit" id="submitButton">Submit</button>
-    </form>
- 
-`;
+    </form>   
+ `;
+
+ //declare newPlayer 
+ let player;
+
 newPlayerForm.addEventListener("submit", async (event) => {
-    event.preventDefault();  //The method preventDefault() is a built-in method in JavaScript that is specifically used to prevent the default behavior of an event.
-    const name = document.getElementById("name").value;
+    event.preventDefault();  //The method preventDefault() is a built-in method in JavaScript that is specifically used to prevent the default behavior of an event
+    
+    const name = document.getElementById("name").value;   
     const breed = document.getElementById("breed").value;
     const cohortId = document.getElementById("cohortId").value;
     const createdAt = document.getElementById("createdAt").value;
@@ -167,35 +181,42 @@ newPlayerForm.addEventListener("submit", async (event) => {
     const teamId = document.getElementById("teamId").value;
     const updatedAt = document.getElementById("updatedAt").value;
 
-    const newPlayer = {     // - - ??? Do you have to do something with this object ??? 
-        name: name,
-        breed: breed,
-        status: status,
-        cohortId: cohortId,
-        createdAt: createdAt,
-        id: id,
-        imageUrl: imageUrl,
-        teamId: teamId,
-        updatedAt: updatedAt
+
+   const player = {  //assigning a player, to the newPlayer variable,
+         name,
+         breed,
+         cohortId,
+         createdAt,
+         id,
+         imageUrl,
+         status,
+         teamId,
+         updatedAt
     };
 
-    const form = document.querySelector("form");
+    const response = await addNewPlayer(player);
+    console.log("New Player:", response);
+
+    newPlayerForm.reset();
+});  //last of event listener
+   const form = document.querySelector("form");
     form.innerHTML = `
         <p>New Player Has Been Added To The Roster</p>
-        </p>Name: ${newPlayer.name}</p>
-        </p>Breed: ${newPlayer.breed}</p>
-        </p>CohortId: ${newPlayer.cohortId}</p>
-        </p>Created At:${newPlayer.createdAt}</p>
-        </p>Player Id: ${newPlayer.id}</p>
-        </p>Image Url: ${newPlayer.imageUrl}</p>
-        </p>$Team Id: ${newPlayer.teamId}</p>
-        </p>Updated at: ${newPlayer.updatedAt}</p>
-    `;
-}); //last one of for addEventListener
+        </p>Name: ${player.name}</p>
+        </p>Breed: ${player.breed}</p>
+        </p>CohortId: ${player.cohortId}</p>
+        </p>Created At:${player.createdAt}</p>
+        </p>Player Id: ${player.id}</p>
+        </p>Image Url: ${player.imageUrl}</p>
+        </p>$Team Id: ${player.teamId}</p>
+        </p>Updated at: ${player.updatedAt}</p>
+  `;
+ //last one of for addEventListener
     } catch (error) {
      console.log("Error", error);   
     }
 }
+
 
 //initiate the function
 const init = async () => {
@@ -208,6 +229,7 @@ const init = async () => {
 }
 
 init();
+
 
 
 
