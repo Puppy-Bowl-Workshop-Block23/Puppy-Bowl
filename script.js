@@ -49,6 +49,10 @@ const API_URL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}`;
  */
 const fetchAllPlayers = async () => {
     try {
+        //fetch all participants
+        const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players");
+        const result = await response.json();
+        return result.data.players;
 
     } catch (err) {
         console.error('Uh oh, trouble fetching players!', err);
@@ -57,7 +61,7 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
     try {
-
+        
     } catch (err) {
         console.error(`Oh no, trouble fetching player #${playerId}!`, err);
     }
@@ -92,7 +96,7 @@ const addNewPlayer = async () =>{
 
 const removePlayer = async (playerId) => {
     try {
-
+        
     } catch (err) {
         console.error(
             `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -121,10 +125,35 @@ const removePlayer = async (playerId) => {
  * @param playerList - an array of player objects
  * @returns the playerContainerHTML variable.
  */
+
+//RENDER ALL CODE PLUS BUTTONS 
+
 const renderAllPlayers = (playerList) => {
     try {
-        
-    } catch (err) {
+        const players = fetchAllPlayers();
+        players.innerHTML = '';
+        playerList.forEach((player) => {
+
+            const puppyElement = document.createElement('div')
+            puppyElement.classList.add('player');
+            puppyElement.innerHTML = `
+            <h2>${player.name}</h2>
+            <p> Breed: ${player.breed}</p>
+            <p> Status: ${player.status}</p>
+            <img src= ${player.imageUrl} width="300" height="600">
+            <p> Created on: ${player.createdAt}</p>
+            <p> Updated on: ${player.updatedAt}</p>
+            <p> Team ID: ${player.teamId}</p>
+            <p> Cohort ID: ${player.cohortId}</p>
+            <button class="details-button" data-id="${player.id}">See Details</button>
+            <button class="delete-button" data-id="${player.id}">Remove from roster</button>
+            `;
+
+            playerContainer.appendChild(puppyElement);
+        });
+    }
+
+    catch (err) {
         console.error('Uh oh, trouble rendering players!', err);
     }
 };
@@ -138,70 +167,68 @@ const renderAllPlayers = (playerList) => {
 //Create a Form, and Render a Player, when form is filled out
 
 
-//Fixing bugs to get POST Request to work and add new player
-const playerInfoContainer = document.createElement("div");
-playerInfoContainer.classList.add("player-info");
+const addNewPlayerToServer = async (playerObj) =>{
+    try {
+        const response = await fetch ("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players" , {  //maybe this is wrong
+            method: "POST", //creating a post to the server
+            headers: {
+                "Content-Type": "application/json",  //This tells the server that the request body will be in JSON format
+            },
+            body: JSON.stringify(playerObj), //stringify converts json() to string
 
-//new player form
-const renderNewPlayerForm = () => {
+        }); //last curly of the fetch api 
+
+       const result = await response.json();  //await the api variable you fetched to, to json , assigning it to a result variable 
+       console.log(result); //console.log result 
+    } catch (error) {
+        console.log("Error", error);
+    }
+};
+
+ const renderNewPlayerForm = () => {
   try {
     const newPlayerForm = document.getElementById("new-player-form");
+    const playerInfoContainer = document.getElementById("player-info-container");
+
     newPlayerForm.innerHTML = `
       <form class="newFormEntry" autocomplete="on">
         <label for="name">Name:</label>
         <input type="text" name="name" id="name" />
         <label for="breed">Breed:</label>
         <input type="text" name="breed" id="breed" />
-        <label for="cohortId">Cohort ID:</label>
-        <input type="text" name="cohortId" id="cohortId" />
-        <label for="createdAt">Created At:</label>
-        <input type="text" name="createdAt" id="createdAt" />
-        <label for="id">ID:</label>
-        <input type="text" name="id" id="id" />
-        <label for="imageUrl">Image URL:</label>
-        <input type="text" name="imageUrl" id="imageUrl" />
         <label for="status">Status:</label>
         <input type="text" name="status" id="status" />
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" name="imageUrl" id="imageUrl" />
         <label for="teamId">Team ID:</label>
         <input type="text" name="teamId" id="teamId" />
-        <label for="updatedAt">Updated At:</label>
-        <input type="text" name="updatedAt" id="updatedAt" />
         <button type="submit" id="submitButton">Submit</button>
       </form>   
     `;
 
-    newPlayerForm.addEventListener("submit", async (event) => {
+    newPlayerForm.addEventListener("submit", async (event) => { //on the form make an eventListener on submit 
       event.preventDefault();
 
-      const name = document.getElementById("name").value;
-      const breed = document.getElementById("breed").value;
-      const cohortId = document.getElementById("cohortId").value;
-      const createdAt = document.getElementById("createdAt").value;
-      const id = document.getElementById("id").value;
-      const imageUrl = document.getElementById("imageUrl").value;
-      const status = document.getElementById("status").value;
-      const teamId = document.getElementById("teamId").value;
-      const updatedAt = document.getElementById("updatedAt").value;
+      const newName = document.getElementById("name").value;
+      const newBreed = document.getElementById("breed").value;
+      const newStatus = document.getElementById("status").value;
+      const newImageUrl = document.getElementById("imageUrl").value;
+      const newTeamId = document.getElementById("teamId").value;
 
       const player = {
-        name,
-        breed,
-        cohortId,
-        createdAt,
-        id,
-        imageUrl,
-        status,
-        teamId,
-        updatedAt,
+        name: newName,
+        breed: newBreed,
+        status: newStatus,
+        imageUrl: newImageUrl,
+        teamId: newTeamId
       };
 
       try {
-        await addNewPlayer(player);
+        await addNewPlayerToServer(player);  //
         console.log("New Player Has Been Added");
-
-        newPlayerForm.reset();
-
-        playerInfoContainer.innerHTML = `
+        
+        //New Puppy Player info displayed
+        playerInfoContainer.innerHTML = ` 
           <p>New Player Has Been Added To The Roster</p>
           <p>Name: ${player.name}</p>
           <p>Breed: ${player.breed}</p>
@@ -211,7 +238,7 @@ const renderNewPlayerForm = () => {
           <p>Image Url: ${player.imageUrl}</p>
           <p>Team Id: ${player.teamId}</p>
           <p>Updated at: ${player.updatedAt}</p>
-        `;
+        `; //The container from html, the get element by id, we defined earlier 
       } catch (error) {
         console.log("Error", error);
       }
@@ -220,20 +247,20 @@ const renderNewPlayerForm = () => {
     console.log("Error", error);
   }
 };
- 
+
+
 //initiate the function
 const init = async () => {
     try {
        renderNewPlayerForm();
-       
+      
+        const players = await fetchAllPlayers();
+        renderAllPlayers(players);
     } catch (error) {
         console.log("Error", error);
     }
 }
 
 init();
-
-
-
 
 
