@@ -142,6 +142,7 @@ const renderAllPlayers = (playerList) => {
 const playerInfoContainer = document.createElement("div");
 playerInfoContainer.classList.add("player-info");
 
+//new player form
 const renderNewPlayerForm = () => {
   try {
     const newPlayerForm = document.getElementById("new-player-form");
