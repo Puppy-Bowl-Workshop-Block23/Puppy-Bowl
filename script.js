@@ -126,14 +126,12 @@ const removePlayer = async (playerId) => {
  * @returns the playerContainerHTML variable.
  */
 
-//RENDER ALL CODE PLUS BUTTONS 
-
+//rendering all players with for loop and adding details/delete buttons
 const renderAllPlayers = (playerList) => {
     try {
         const players = fetchAllPlayers();
         players.innerHTML = '';
         playerList.forEach((player) => {
-
             const puppyElement = document.createElement('div')
             puppyElement.classList.add('player');
             puppyElement.innerHTML = `

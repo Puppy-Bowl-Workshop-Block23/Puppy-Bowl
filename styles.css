@@ -10,12 +10,8 @@ html{
   background-color: #F7DDD4;
 
 }
-body{
- 
-    display: grid;
-    -ms-grid-column-align: center;
-}
 
+/*all puppy images*/
 img {
   height: 200px;
   width: 200px;
@@ -67,6 +63,7 @@ font-size: 12pt;
   background-color: black;
 }
 
+/*details button*/
 .details-button{
   font-family: 'Righteous', cursive;
   font-size: 12pt;
@@ -81,6 +78,7 @@ font-size: 12pt;
   background-color: black;
 }
 
+/*delete button*/
 .delete-button{
   font-family: 'Righteous', cursive;
   font-size: 12pt;
@@ -93,6 +91,8 @@ font-size: 12pt;
   cursor: pointer;
   background-color: black;
 }
+
+/* padding for all rendered players*/
 .player{
   padding: 25px;
 }
