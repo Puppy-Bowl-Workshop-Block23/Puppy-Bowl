@@ -1,7 +1,6 @@
 //Block 23: Puppy Bowl 
 
 /*
-
     Requirements:
     
     * GitHub Project
