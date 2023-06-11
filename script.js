@@ -68,9 +68,9 @@ const fetchSinglePlayer = async (playerId) => {
 };
 
 //add new player
-const addNewPlayer = async (player) =>{
+const addNewPlayer = async () =>{
     try {
-        const response = await fetch (`${API_URL}${cohortName}/players` , {  //maybe this is wrong
+        const response = await fetch ("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/player" , {  //maybe this is wrong
             method: "POST", //creating a post to the server
             headers: {
                 "Content-Type": "application/json",  //This tells the server that the request body will be in JSON format
@@ -83,7 +83,7 @@ const addNewPlayer = async (player) =>{
                 status: "field",
                 teamId: 20,
                 updatedAt: "2023-06-10T00:53:59.684Z"
-            }), //converts json() to string
+            }), //stringify converts json() to string
 
         }); //last curly of the fetch api 
 
@@ -166,14 +166,19 @@ const renderAllPlayers = (playerList) => {
 
 //Create a Form, and Render a Player, when form is filled out
 
-//Creating a Form, and render a player 
+
+//Fixing bugs to get POST Request to work and add new player
+const playerInfoContainer = document.createElement("div");
+playerInfoContainer.classList.add("player-info");
+
+//new player form
 const renderNewPlayerForm = () => {
-    try {
+  try {
     const newPlayerForm = document.getElementById("new-player-form");
     newPlayerForm.innerHTML = `
-        <form class="newFormEntry" autocomplete="on">
+      <form class="newFormEntry" autocomplete="on">
         <label for="name">Name:</label>
-        <input type="text" name="dogsName" id="name" />
+        <input type="text" name="name" id="name" />
         <label for="breed">Breed:</label>
         <input type="text" name="breed" id="breed" />
         <label for="cohortId">Cohort ID:</label>
@@ -187,74 +192,71 @@ const renderNewPlayerForm = () => {
         <label for="status">Status:</label>
         <input type="text" name="status" id="status" />
         <label for="teamId">Team ID:</label>
-        <input type="text" name="teamId" id="teamId"/>
+        <input type="text" name="teamId" id="teamId" />
         <label for="updatedAt">Updated At:</label>
         <input type="text" name="updatedAt" id="updatedAt" />
         <button type="submit" id="submitButton">Submit</button>
-    </form>   
- `;
+      </form>   
+    `;
 
- //declare newPlayer 
- let player;
+    newPlayerForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
 
-newPlayerForm.addEventListener("submit", async (event) => {
-    event.preventDefault();  //The method preventDefault() is a built-in method in JavaScript that is specifically used to prevent the default behavior of an event
-    
-    const name = document.getElementById("name").value;   
-    const breed = document.getElementById("breed").value;
-    const cohortId = document.getElementById("cohortId").value;
-    const createdAt = document.getElementById("createdAt").value;
-    const id = document.getElementById("id").value;
-    const imageUrl = document.getElementById("imageUrl").value;
-    const status = document.getElementById("status").value;
-    const teamId = document.getElementById("teamId").value;
-    const updatedAt = document.getElementById("updatedAt").value;
+      const name = document.getElementById("name").value;
+      const breed = document.getElementById("breed").value;
+      const cohortId = document.getElementById("cohortId").value;
+      const createdAt = document.getElementById("createdAt").value;
+      const id = document.getElementById("id").value;
+      const imageUrl = document.getElementById("imageUrl").value;
+      const status = document.getElementById("status").value;
+      const teamId = document.getElementById("teamId").value;
+      const updatedAt = document.getElementById("updatedAt").value;
 
+      const player = {
+        name,
+        breed,
+        cohortId,
+        createdAt,
+        id,
+        imageUrl,
+        status,
+        teamId,
+        updatedAt,
+      };
 
-   const player = {  //assigning a player, to the newPlayer variable,
-         name,
-         breed,
-         cohortId,
-         createdAt,
-         id,
-         imageUrl,
-         status,
-         teamId,
-         updatedAt
-    };
+      try {
+        await addNewPlayer(player);
+        console.log("New Player Has Been Added");
 
-    const response = await addNewPlayer(player);
-    console.log("New Player:", response);
+        newPlayerForm.reset();
 
-    newPlayerForm.reset();
-});  //last of event listener
-   const form = document.querySelector("form");
-    form.innerHTML = `
-        <p>New Player Has Been Added To The Roster</p>
-        </p>Name: ${player.name}</p>
-        </p>Breed: ${player.breed}</p>
-        </p>CohortId: ${player.cohortId}</p>
-        </p>Created At:${player.createdAt}</p>
-        </p>Player Id: ${player.id}</p>
-        </p>Image Url: ${player.imageUrl}</p>
-        </p>$Team Id: ${player.teamId}</p>
-        </p>Updated at: ${player.updatedAt}</p>
-  `;
- //last one of for addEventListener
-    } catch (error) {
-     console.log("Error", error);   
-    }
-}
-
-
+        playerInfoContainer.innerHTML = `
+          <p>New Player Has Been Added To The Roster</p>
+          <p>Name: ${player.name}</p>
+          <p>Breed: ${player.breed}</p>
+          <p>CohortId: ${player.cohortId}</p>
+          <p>Created At: ${player.createdAt}</p>
+          <p>Player Id: ${player.id}</p>
+          <p>Image Url: ${player.imageUrl}</p>
+          <p>Team Id: ${player.teamId}</p>
+          <p>Updated at: ${player.updatedAt}</p>
+        `;
+      } catch (error) {
+        console.log("Error", error);
+      }
+    });
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+ 
 //initiate the function
 const init = async () => {
     try {
-         const players = await fetchAllPlayers();
-         renderAllPlayers(players);
-
-        renderNewPlayerForm();
-       
+       renderNewPlayerForm();
+      
+        const players = await fetchAllPlayers();
+        renderAllPlayers(players);
     } catch (error) {
         console.log("Error", error);
     }
