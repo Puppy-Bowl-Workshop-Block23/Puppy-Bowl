@@ -245,7 +245,7 @@ const renderNewPlayerForm = () => {
             <p class="infoNewPlayer">CohortId: ${player.cohortId}</p>
             <p class="infoNewPlayer">Created At: ${player.createdAt}</p>
             <p class="infoNewPlayer">Player Id: ${player.id}</p>
-            <p class="infoNewPlayer">Image Url: ${player.imageUrl}</p>
+            <img src=${player.imageUrl} width="300" height="600"></div>
             <p class="infoNewPlayer">Team Id: ${player.teamId}</p>
             <p class="infoNewPlayer">Updated at: ${player.updatedAt}</p>
           `;
