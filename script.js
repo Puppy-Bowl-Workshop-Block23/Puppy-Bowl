@@ -168,14 +168,13 @@ const renderAllPlayers = (playerList) => {
 
 const addNewPlayerToServer = async (playerObj) =>{
     try {
-        const response = await fetch ("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players" , {  //maybe this is wrong
-            method: "POST", //creating a post to the server
+        const response = await fetch(`${API_URL}/players`, {
+            method: "POST",
             headers: {
-                "Content-Type": "application/json",  //This tells the server that the request body will be in JSON format
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify(playerObj), //stringify converts json() to string
-
-        }); //last curly of the fetch api 
+            body: JSON.stringify(playerObj),
+          });
 
        const result = await response.json();  //await the api variable you fetched to, to json , assigning it to a result variable 
        console.log(result); //console.log result 
@@ -184,68 +183,80 @@ const addNewPlayerToServer = async (playerObj) =>{
     }
 };
 
- const renderNewPlayerForm = () => {
-  try {
-    const newPlayerForm = document.getElementById("new-player-form");
-    const playerInfoContainer = document.getElementById("player-info-container");
+const renderNewPlayerForm = () => {
+    try {
+      const newPlayerForm = document.getElementById("new-player-form");
+      const playerInfoContainer = document.getElementById("player-info-container");
+  
+      newPlayerForm.innerHTML = `
+        <form class="newFormEntry" id="moreStyles" autocomplete="on">
+          <label for="name">Name:</label>
+          <input type="text" name="name" id="name" />
+  
+          <label for="breed">Breed:</label>
+          <input type="text" name="breed" id="breed" />
 
-    newPlayerForm.innerHTML = `
-      <form class="newFormEntry" autocomplete="on">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" />
-        <label for="breed">Breed:</label>
-        <input type="text" name="breed" id="breed" />
-        <label for="status">Status:</label>
-        <input type="text" name="status" id="status" />
-        <label for="imageUrl">Image URL:</label>
-        <input type="text" name="imageUrl" id="imageUrl" />
-        <label for="teamId">Team ID:</label>
-        <input type="text" name="teamId" id="teamId" />
-        <button type="submit" id="submitButton">Submit</button>
-      </form>   
-    `;
+          <label for="status">Status:</label>
+          <input type="text" name="status" id="status" />
+  
+          <label for="imageUrl">Image URL:</label>
+          <input type="text" name="imageUrl" id="imageUrl" />
+          <br>
+          <label for="teamId">Team ID:</label>
+          <input type="text" name="teamId" id="teamId" />
 
-    newPlayerForm.addEventListener("submit", async (event) => { //on the form make an eventListener on submit 
-      event.preventDefault();
+          <label for="createdAt">Created At:</label>
+          <input type="text" name="createdAt" id="createdAt" />
 
-      const newName = document.getElementById("name").value;
-      const newBreed = document.getElementById("breed").value;
-      const newStatus = document.getElementById("status").value;
-      const newImageUrl = document.getElementById("imageUrl").value;
-      const newTeamId = document.getElementById("teamId").value;
+          <button type="submit" id="submitButton">Submit</button>
+        </form>   
+      `;
 
-      const player = {
-        name: newName,
-        breed: newBreed,
-        status: newStatus,
-        imageUrl: newImageUrl,
-        teamId: newTeamId
-      };
-
-      try {
-        await addNewPlayerToServer(player);  //
-        console.log("New Player Has Been Added");
-        
-        //New Puppy Player info displayed
-        playerInfoContainer.innerHTML = ` 
-          <p>New Player Has Been Added To The Roster</p>
-          <p>Name: ${player.name}</p>
-          <p>Breed: ${player.breed}</p>
-          <p>CohortId: ${player.cohortId}</p>
-          <p>Created At: ${player.createdAt}</p>
-          <p>Player Id: ${player.id}</p>
-          <p>Image Url: ${player.imageUrl}</p>
-          <p>Team Id: ${player.teamId}</p>
-          <p>Updated at: ${player.updatedAt}</p>
-        `; //The container from html, the get element by id, we defined earlier 
-      } catch (error) {
-        console.log("Error", error);
-      }
-    });
-  } catch (error) {
-    console.log("Error", error);
-  }
-};
+      newPlayerForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+  
+        const newName = document.getElementById("name").value;
+        const newBreed = document.getElementById("breed").value;
+        const newStatus = document.getElementById("status").value;
+        const NewImageUrl = document.getElementById("imageUrl").value;
+        const newTeamId = document.getElementById("teamId").value;
+        const newCohortId = document.getElementById("cohortId");
+        const newCreatedAt = document.getElementById("createdAt");  //this is not working ??? Was going to add more to the form but it was not showing the rest, and its rendering the rest of the properties anyways, just with no value
+       
+        const player = {
+          name: newName,
+          breed: newBreed,
+          status: newStatus,
+          imageUrl: NewImageUrl,
+          teamId: newTeamId,
+          cohortId: newCohortId,
+          createdAt: newCreatedAt
+        };
+  
+        try {
+          await addNewPlayerToServer(player);
+          console.log("New Player Has Been Added");
+  
+          // New Puppy Player info displayed
+          playerInfoContainer.innerHTML = `
+            <p class="newPlayerFromForm">New Player Has Been Added To The Roster</p>
+            <p class="infoNewPlayer">Name: ${player.name}</p>
+            <p class="infoNewPlayer">Breed: ${player.breed}</p>
+            <p class="infoNewPlayer">CohortId: ${player.cohortId}</p>
+            <p class="infoNewPlayer">Created At: ${player.createdAt}</p>
+            <p class="infoNewPlayer">Player Id: ${player.id}</p>
+            <p class="infoNewPlayer">Image Url: ${player.imageUrl}</p>
+            <p class="infoNewPlayer">Team Id: ${player.teamId}</p>
+            <p class="infoNewPlayer">Updated at: ${player.updatedAt}</p>
+          `;
+        } catch (error) {
+          console.log("Error", error);
+        }
+      });
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
 
 
 //initiate the function
