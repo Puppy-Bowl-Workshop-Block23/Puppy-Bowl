@@ -58,13 +58,14 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
     try {
-        const APIPLAYER = "https://fsa-puppy-bowl.herokuapp.com/ap1/2302-ACC-CT-WEB-PT/players/4/";
-        const response = await fetch (`${APIPLAYER}/${playerId}`);
-        const singlePlayer = await response.json();
-        console.log("Single Player:", player);
+        const API_Player = "https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT-B/player/20/";
+        const response = await fetch (`${API_PLAYER}/${playerId}`);
+        const player = await response.json();
+        console.log("player:", single );
         return player;
+
     } catch (error) {
-        console.error("${playerId}!", error);
+        console.log("error: ", $,{playerId},! err);
     }
 }
 
@@ -115,14 +116,15 @@ const renderAllPlayers = (playerList) => {
     }
 };
 
-const renderSinglePlayer = (player) => {
-    const newPlayerCard = document.createElement("div")
-    newPlayerCard.id = player.id;
-    newPlayerCard.className = "player-card"
-    playerContainer.appendChild(newPlayerCard);
+const renderSinglePlayer = async (player) => {
+    
+    const newPlayer= document.createElement("div")
+    newPlayer.id = player.id;
+    newPlayer.className = "player card"
+    playerContainer.appendChild(newPlayer);
 
     const newPlayerName = document.createElement("h2");
-    newPlayerCard.appendChild(newPlayerName);
+    newPlayer.appendChild(newPlayerName);
     newPlayerName.innerHTML = player.name
 }
 /**
@@ -138,10 +140,18 @@ const renderNewPlayerForm = () => {
 }
 
 const init = async () => {
-    const player = await fetchSinglePlayer();
+    try {
+
+       const player = await fetchSinglePlayer();
     renderSinglePlayer(player);
 
     renderSinglePlayer();
+
+} catch (error) {
+    console.log ("Error", error);
 }
+
+}
+
 
 init();
