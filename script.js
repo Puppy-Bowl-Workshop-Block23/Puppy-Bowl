@@ -66,32 +66,6 @@ const fetchSinglePlayer = async (playerId) => {
     }
 };
 
-//add new player
-const addNewPlayer = async () =>{
-    try {
-        const response = await fetch ("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/player" , {  //maybe this is wrong
-            method: "POST", //creating a post to the server
-            headers: {
-                "Content-Type": "application/json",  //This tells the server that the request body will be in JSON format
-            },
-            body: JSON.stringify({
-                name: "Roxy",
-                breed: "Pit Terrier",
-                cohortId: 856,
-                id: 8520,
-                status: "field",
-                teamId: 20,
-                updatedAt: "2023-06-10T00:53:59.684Z"
-            }), //stringify converts json() to string
-
-        }); //last curly of the fetch api 
-
-       const result = await response.json();
-       console.log(result);
-    } catch (error) {
-        console.log("Error", error);
-    }
-};
 
 const removePlayer = async (playerId) => {
     try {
@@ -200,7 +174,7 @@ const renderNewPlayerForm = () => {
           <input type="text" name="status" id="status" />
   
           <label for="imageUrl">Image URL:</label>
-          <input type="text" name="imageUrl" id="imageUrl" />
+          <input type="text" name="imageUrl" id="image-url" />
           <br>
           <label for="teamId">Team ID:</label>
           <input type="text" name="teamId" id="teamId" />
@@ -218,7 +192,7 @@ const renderNewPlayerForm = () => {
         const newName = document.getElementById("name").value;
         const newBreed = document.getElementById("breed").value;
         const newStatus = document.getElementById("status").value;
-        const NewImageUrl = document.getElementById("imageUrl").value;
+        const newImageUrl = document.getElementById("image-url").value;
         const newTeamId = document.getElementById("teamId").value;
         const newCohortId = document.getElementById("cohortId");
         const newCreatedAt = document.getElementById("createdAt");  //this is not working ??? Was going to add more to the form but it was not showing the rest, and its rendering the rest of the properties anyways, just with no value
@@ -227,7 +201,7 @@ const renderNewPlayerForm = () => {
           name: newName,
           breed: newBreed,
           status: newStatus,
-          imageUrl: NewImageUrl,
+          imageUrl: newImageUrl,
           teamId: newTeamId,
           cohortId: newCohortId,
           createdAt: newCreatedAt
@@ -236,7 +210,7 @@ const renderNewPlayerForm = () => {
         try {
           await addNewPlayerToServer(player);
           console.log("New Player Has Been Added");
-  
+
           // New Puppy Player info displayed
           playerInfoContainer.innerHTML = `
             <p class="newPlayerFromForm">New Player Has Been Added To The Roster</p>
