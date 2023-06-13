@@ -37,7 +37,7 @@
 
 
 //get div's from html, assigning them a variable
-const playerContainer = document.getElementById("all-players-container");
+
 
 const cohortName = "2302-ACC-CT-WEB-PT-B"; // our cohort, assigned to variable
 
@@ -59,13 +59,13 @@ const fetchAllPlayers = async () => {
 const fetchSinglePlayer = async (playerId) => {
     try {
         const API_Player = "https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT-B/players";
-        const response = await fetch (`${API_PLAYER}/${playerId}`);
+        const response = await fetch (`${API_Player}/${playerId}`);
         const singlePlayer = await response.json();
         console.log("player:", singlePlayer);
         return singlePlayer;
 
     } catch (error) {
-        console.log("error: ",${playerId}!, err);
+        console.log("error: ",`${playerId}!`, err);
     }
 }
 
@@ -117,7 +117,7 @@ const renderAllPlayers = (playerList) => {
 };
 
 const renderSinglePlayer = async (playerId) => {
-    
+    const playerContainer = document.getElementById("all-players-container");
     const newPlayer= document.createElement("div")
     newPlayer.id = player.id;
     newPlayer.className = "player card"
