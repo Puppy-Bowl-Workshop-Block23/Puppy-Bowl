@@ -52,6 +52,10 @@ const fetchAllPlayers = async () => {
         const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players");
         const result = await response.json();
         return result.data.players;
+        //fetch all participants
+        const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players");
+        const result = await response.json();
+        return result.data.players;
 
     } catch (err) {
         console.error('Uh oh, trouble fetching players!', err);
@@ -60,7 +64,7 @@ const fetchAllPlayers = async () => {
 
 const fetchSinglePlayer = async (playerId) => {
     try {
-        
+                
     } catch (err) {
         console.error(`Oh no, trouble fetching player #${playerId}!`, err);
     }
@@ -69,7 +73,7 @@ const fetchSinglePlayer = async (playerId) => {
 
 const removePlayer = async (playerId) => {
     try {
-        
+                
     } catch (err) {
         console.error(
             `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -101,12 +105,13 @@ const removePlayer = async (playerId) => {
 
 //RENDER ALL CODE PLUS BUTTONS 
 
+
+//rendering all players with for loop and adding details/delete buttons
 const renderAllPlayers = (playerList) => {
     try {
         const players = fetchAllPlayers();
         players.innerHTML = '';
         playerList.forEach((player) => {
-
             const puppyElement = document.createElement('div')
             puppyElement.classList.add('player');
             puppyElement.innerHTML = `
@@ -237,6 +242,9 @@ const renderNewPlayerForm = () => {
 const init = async () => {
     try {
        renderNewPlayerForm();
+      
+        const players = await fetchAllPlayers();
+        renderAllPlayers(players);
       
         const players = await fetchAllPlayers();
         renderAllPlayers(players);

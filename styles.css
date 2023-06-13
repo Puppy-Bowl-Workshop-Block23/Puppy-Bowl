@@ -7,6 +7,7 @@
 }
 
 html{
+html{
   background-color: #F7DDD4;
 
 }
@@ -45,7 +46,6 @@ label {
 input {
 border: 2px solid black;
 border-radius: 5px;
-font-size: 14pt;
  
 }
 
@@ -112,7 +112,39 @@ font-size: 14pt;
   cursor: pointer;
   background-color: black;
 }
+/*details button*/
+.details-button{
+  font-family: 'Righteous', cursive;
+  font-size: 12pt;
+  margin:5px;
+  width: 105px;
+  height:30px;
+  border-radius: 5px;
+}
+.details-button:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
 
+/*delete button*/
+.delete-button{
+  font-family: 'Righteous', cursive;
+  font-size: 12pt;
+  width: 175px;
+  height:30px;
+  border-radius: 5px;
+}
+.delete-button:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
+
+/* padding for all rendered players*/
+.player{
+  padding: 25px;
+}
 /* padding for all rendered players*/
 .player{
   padding: 25px;
