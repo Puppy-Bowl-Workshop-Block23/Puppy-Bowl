@@ -1,5 +1,98 @@
-*{
+/*html*/
+
+* {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+html{
+  background-color: #F7DDD4;
+
+}
+
+/*all puppy images*/
+img {
+  height: 200px;
+  width: 200px;
+}
+
+/*headings*/
+h1 {
+  font-family: 'Righteous', cursive;
+  text-align: center;
+  margin-top: 40px;
+  text-decoration: underline;
+  font-size: 28pt;
+}
+
+/*form*/
+label {
+  font-size: 14pt;
+}
+
+#newFormEntry {
+  width: 100%;
+  max-width: 1500px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+input {
+border: 2px solid black;
+border-radius: 5px;
+font-size: 12pt;
+}
+
+/*submit button*/
+#submitButton {
+  font-family: 'Righteous', cursive;
+  margin: 10px;
+  font-size: 12pt;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#submitButton:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
+
+/*details button*/
+.details-button{
+  font-family: 'Righteous', cursive;
+  font-size: 12pt;
+  margin:5px;
+  width: 105px;
+  height:30px;
+  border-radius: 5px;
+}
+.details-button:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
+
+/*delete button*/
+.delete-button{
+  font-family: 'Righteous', cursive;
+  font-size: 12pt;
+  width: 175px;
+  height:30px;
+  border-radius: 5px;
+}
+.delete-button:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
+
+/* padding for all rendered players*/
+.player{
+  padding: 25px;
 }
