@@ -138,8 +138,6 @@ const renderAllPlayers = (playerList) => {
  */
 
 //Create a Form, and Render a Player, when form is filled out
-
-
 const addNewPlayerToServer = async (playerObj) =>{
     try {
         const response = await fetch(`${API_URL}/players`, {
