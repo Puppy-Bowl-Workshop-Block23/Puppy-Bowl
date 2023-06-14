@@ -52,7 +52,7 @@ const fetchAllPlayers = async () => {
         const response = await fetch("https://fsa-puppy-bowl.herokuapp.com/api/2302-ACC-CT-WEB-PT/players");
         const result = await response.json();
         return result.data.players;
-
+        
     } catch (err) {
         console.error('Uh oh, trouble fetching players!', err);
     }
@@ -170,17 +170,17 @@ const renderNewPlayerForm = () => {
           <label for="breed">Breed:</label>
           <input type="text" name="breed" id="breed" />
 
+          <label for="cohortId">Cohort ID:</label>
+          <input type="text" name="cohortId" id="cohortId" />
+
           <label for="status">Status:</label>
           <input type="text" name="status" id="status" />
   
           <label for="imageUrl">Image URL:</label>
           <input type="text" name="imageUrl" id="image-url" />
-          <br>
+          
           <label for="teamId">Team ID:</label>
           <input type="text" name="teamId" id="teamId" />
-
-          <label for="createdAt">Created At:</label>
-          <input type="text" name="createdAt" id="createdAt" />
 
           <button type="submit" id="submitButton">Submit</button>
         </form>   
@@ -191,20 +191,18 @@ const renderNewPlayerForm = () => {
   
         const newName = document.getElementById("name").value;
         const newBreed = document.getElementById("breed").value;
+        const newCohortId = document.getElementById("cohortId").value;;
         const newStatus = document.getElementById("status").value;
         const newImageUrl = document.getElementById("image-url").value;
         const newTeamId = document.getElementById("teamId").value;
-        const newCohortId = document.getElementById("cohortId");
-        const newCreatedAt = document.getElementById("createdAt");  //this is not working ??? Was going to add more to the form but it was not showing the rest, and its rendering the rest of the properties anyways, just with no value
-       
+        
         const player = {
           name: newName,
           breed: newBreed,
-          status: newStatus,
-          imageUrl: newImageUrl,
-          teamId: newTeamId,
           cohortId: newCohortId,
-          createdAt: newCreatedAt
+          imageUrl: newImageUrl,
+          status: newStatus,
+          teamId: newTeamId
         };
   
         try {
@@ -214,14 +212,14 @@ const renderNewPlayerForm = () => {
           // New Puppy Player info displayed
           playerInfoContainer.innerHTML = `
             <p class="newPlayerFromForm">New Player Has Been Added To The Roster</p>
-            <p class="infoNewPlayer">Name: ${player.name}</p>
-            <p class="infoNewPlayer">Breed: ${player.breed}</p>
-            <p class="infoNewPlayer">CohortId: ${player.cohortId}</p>
-            <p class="infoNewPlayer">Created At: ${player.createdAt}</p>
-            <p class="infoNewPlayer">Player Id: ${player.id}</p>
-            <img src=${player.imageUrl} width="300" height="600"></div>
-            <p class="infoNewPlayer">Team Id: ${player.teamId}</p>
-            <p class="infoNewPlayer">Updated at: ${player.updatedAt}</p>
+            <p class="infoNewPlayer"><em>Name:</em> ${player.name}</p>
+            <p class="infoNewPlayer"><em>Breed:</em> ${player.breed}</p>
+            <p class="infoNewPlayer"><em>CohortId:</em> ${player.cohortId}</p>
+            <div class="img-container">
+            <img src=${player.imageUrl} width="300" height="600">
+            </div>
+            <p class="infoNewPlayer"><em>Status:</em> ${player.status}</p>
+            <p class="infoNewPlayer"><em>Team Id:</em> ${player.teamId}</p>
           `;
         } catch (error) {
           console.log("Error", error);
@@ -246,7 +244,5 @@ const init = async () => {
 }
 
 init();
-
-
 
 
