@@ -92,7 +92,22 @@ font-size: 12pt;
   background-color: black;
 }
 
-/* padding for all rendered players*/
-.player{
-  padding: 25px;
+/*player container styling*/
+#all-players-container {
+  display: grid;
+  height: 20px;
+  align-content: normal;
+  grid-template-columns: auto auto auto;
+  gap: 40px;
+  padding: 5%;
+  
+}
+
+/*individual cards styling*/
+#all-players-container > div {
+  background-color: rgba(113, 93, 93, 0.339);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 20px;
+  
 }
