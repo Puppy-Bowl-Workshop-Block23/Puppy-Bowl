@@ -122,6 +122,7 @@ font-size: 14pt;
 }
 
 
+
 /*individual cards styling*/
 #all-players-container > div {
   background-color: rgba(113, 93, 93, 0.295);
@@ -130,4 +131,5 @@ font-size: 14pt;
   font-size: 20px;
   
 }
+
 

@@ -160,77 +160,81 @@ const addNewPlayerToServer = async (playerObj) =>{
 };
 
 const renderNewPlayerForm = () => {
-    try {
-      const newPlayerForm = document.getElementById("new-player-form");
-      const playerInfoContainer = document.getElementById("player-info-container");
-  
-      newPlayerForm.innerHTML = `
-        <form class="newFormEntry" id="moreStyles" autocomplete="on">
-          <label for="name">Name:</label>
-          <input type="text" name="name" id="name" />
-  
-          <label for="breed">Breed:</label>
-          <input type="text" name="breed" id="breed" />
+  try {
+    const newPlayerForm = document.getElementById("new-player-form");
+    const playerInfoContainer = document.getElementById("player-info-container");
 
-          <label for="cohortId">Cohort ID:</label>
-          <input type="text" name="cohortId" id="cohortId" />
+    newPlayerForm.innerHTML = `
+      <form class="newFormEntry" id="moreStyles" autocomplete="on">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" />
 
-          <label for="status">Status:</label>
-          <input type="text" name="status" id="status" />
-  
-          <label for="imageUrl">Image URL:</label>
-          <input type="text" name="imageUrl" id="image-url" />
-          
-          <label for="teamId">Team ID:</label>
-          <input type="text" name="teamId" id="teamId" />
+        <label for="breed">Breed:</label>
+        <input type="text" name="breed" id="breed" />
 
-          <button type="submit" id="submitButton">Submit</button>
-        </form>   
-      `;
+        <label for="cohortId">Cohort ID:</label>
+        <input type="text" name="cohortId" id="cohortId" />
 
-      newPlayerForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-  
-        const newName = document.getElementById("name").value;
-        const newBreed = document.getElementById("breed").value;
-        const newCohortId = document.getElementById("cohortId").value;;
-        const newStatus = document.getElementById("status").value;
-        const newImageUrl = document.getElementById("image-url").value;
-        const newTeamId = document.getElementById("teamId").value;
+        <label for="status">Status:</label>
+        <input type="text" name="status" id="status" />
+
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" name="imageUrl" id="image-url" />
         
-        const player = {
-          name: newName,
-          breed: newBreed,
-          cohortId: newCohortId,
-          imageUrl: newImageUrl,
-          status: newStatus,
-          teamId: newTeamId
-        };
-  
-        try {
-          await addNewPlayerToServer(player);
-          console.log("New Player Has Been Added");
+        <label for="teamId">Team ID:</label>
+        <input type="text" name="teamId" id="teamId" />
 
-          // New Puppy Player info displayed
-          playerInfoContainer.innerHTML = `
-            <p class="newPlayerFromForm">New Player Has Been Added To The Roster</p>
-            <p class="infoNewPlayer"><em>Name:</em> ${player.name}</p>
-            <p class="infoNewPlayer"><em>Breed:</em> ${player.breed}</p>
-            <p class="infoNewPlayer"><em>CohortId:</em> ${player.cohortId}</p>
-            <div class="img-container">
-            <img src=${player.imageUrl} width="300" height="600">
-            </div>
-            <p class="infoNewPlayer"><em>Status:</em> ${player.status}</p>
-            <p class="infoNewPlayer"><em>Team Id:</em> ${player.teamId}</p>
-          `;
-        } catch (error) {
-          console.log("Error", error);
-        }
-      });
-    } catch (error) {
-      console.log("Error", error);
-    }
-  };
+        <button type="submit" id="submitButton">Submit</button>
+      </form>   
+    `;
+
+    newPlayerForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const newName = document.getElementById("name").value;
+      const newBreed = document.getElementById("breed").value;
+      const newCohortId = document.getElementById("cohortId").value;;
+      const newStatus = document.getElementById("status").value;
+      const newImageUrl = document.getElementById("image-url").value;
+      const newTeamId = document.getElementById("teamId").value;
+      
+      const player = {
+        name: newName,
+        breed: newBreed,
+        cohortId: newCohortId,
+        imageUrl: newImageUrl,
+        status: newStatus,
+        teamId: newTeamId
+      };
+
+      try {
+        await addNewPlayerToServer(player);
+        console.log("New Player Has Been Added");
+
+        // New Puppy Player info displayed
+        playerInfoContainer.innerHTML = `
+          <p class="newPlayerFromForm">New Player Has Been Added To The Roster</p>
+          <p class="infoNewPlayer"><em>Name:</em> ${player.name}</p>
+          <p class="infoNewPlayer"><em>Breed:</em> ${player.breed}</p>
+          <p class="infoNewPlayer"><em>CohortId:</em> ${player.cohortId}</p>
+          <img src=${player.imageUrl} width="300" height="600">
+          <p class="infoNewPlayer"><em>Status:</em> ${player.status}</p>
+          <p class="infoNewPlayer"><em>Team Id:</em> ${player.teamId}</p>
+          <button class="details-button">See Details</button>
+          <button class="delete-button">Remove from roster</button>
+      
+        `;
+        
+        playerContainer.appendChild(playerInfoContainer);
+
+      } catch (error) {
+        console.log("Error", error);
+      }
+    });
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
 
 
 //initiate the function
