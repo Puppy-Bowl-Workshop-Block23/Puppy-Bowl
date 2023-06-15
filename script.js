@@ -221,7 +221,7 @@ const renderNewPlayerForm = () => {
       
         `;
         
-        // playerContainer.appendChild(playerInfoContainer);
+        playerContainer.appendChild(playerInfoContainer);
 
       } catch (error) {
         console.log("Error", error);
