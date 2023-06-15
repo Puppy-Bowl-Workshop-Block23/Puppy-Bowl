@@ -49,7 +49,6 @@ font-size: 14pt;
 }
 
 
-
 /*new player added to roster*/
 .newPlayerFromForm { 
   font-family: 'Abril Fatface', cursive;
@@ -122,6 +121,7 @@ font-size: 14pt;
   
 }
 
+
 /*individual cards styling*/
 #all-players-container > div {
   background-color: rgba(113, 93, 93, 0.339);
@@ -130,3 +130,4 @@ font-size: 14pt;
   font-size: 20px;
   
 }
+
