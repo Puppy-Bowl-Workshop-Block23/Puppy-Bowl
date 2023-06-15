@@ -122,12 +122,3 @@ font-size: 14pt;
 }
 
 
-/*individual cards styling*/
-#all-players-container > div {
-  background-color: rgba(113, 93, 93, 0.339);
-  text-align: center;
-  padding: 20px 0;
-  font-size: 20px;
-  
-}
-
