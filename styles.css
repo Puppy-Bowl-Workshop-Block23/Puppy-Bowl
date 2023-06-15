@@ -31,9 +31,9 @@ label {
   font-size: 14pt;
 }
 
-#newFormEntry {
+.newFormEntry {
   width: 100%;
-  max-width: 1500px;
+  max-width: 1750px;
   height: auto;
   margin-left: auto;
   margin-right: auto;
@@ -45,8 +45,26 @@ label {
 input {
 border: 2px solid black;
 border-radius: 5px;
-font-size: 12pt;
+font-size: 14pt;
 }
+
+
+
+/*new player added to roster*/
+.newPlayerFromForm { 
+  font-family: 'Abril Fatface', cursive;
+  font-size: 16pt;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-left: 40px;
+}
+
+.infoNewPlayer {
+  font-family: 'Abril Fatface', cursive;
+  padding: 5px;
+  font-size: 14pt;
+  margin-left: 40px;
+ }
 
 /*submit button*/
 #submitButton {
@@ -100,6 +118,7 @@ font-size: 12pt;
   grid-template-columns: auto auto auto;
   gap: 40px;
   padding: 5%;
+  font-family: 'Abril Fatface', cursive;
   
 }
 
