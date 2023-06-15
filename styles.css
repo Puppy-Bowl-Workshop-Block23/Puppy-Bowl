@@ -5,6 +5,17 @@
   box-sizing: border-box;
 }
 
+html{
+  background-color: #F7DDD4;
+
+}
+
+/*all puppy images*/
+img {
+  height: 200px;
+  width: 200px;
+}
+
 /*headings*/
 h1 {
   font-family: 'Righteous', cursive;
@@ -13,3 +24,97 @@ h1 {
   text-decoration: underline;
   font-size: 28pt;
 }
+
+/*form*/
+label {
+  font-size: 14pt;
+}
+
+.newFormEntry {
+  width: 100%;
+  max-width: 1750px;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+input {
+border: 2px solid black;
+border-radius: 5px;
+font-size: 14pt;
+}
+
+.img-container {
+  display: flex;
+  margin-left: 40px;
+  height: 200px;
+}
+
+/*new player added to roster*/
+.newPlayerFromForm { 
+  font-family: 'Abril Fatface', cursive;
+  font-size: 16pt;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-left: 40px;
+}
+
+.infoNewPlayer {
+  font-family: 'Abril Fatface', cursive;
+  padding: 5px;
+  font-size: 14pt;
+  margin-left: 40px;
+ }
+
+/*submit button*/
+#submitButton {
+  font-family: 'Righteous', cursive;
+  margin: 10px;
+  font-size: 12pt;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#submitButton:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
+
+/*details button*/
+.details-button{
+  font-family: 'Righteous', cursive;
+  font-size: 12pt;
+  margin:5px;
+  width: 105px;
+  height:30px;
+  border-radius: 5px;
+}
+.details-button:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
+
+/*delete button*/
+.delete-button{
+  font-family: 'Righteous', cursive;
+  font-size: 12pt;
+  width: 175px;
+  height:30px;
+  border-radius: 5px;
+}
+.delete-button:hover {
+  color: white;
+  cursor: pointer;
+  background-color: black;
+}
+
+/* padding for all rendered players*/
+.player{
+  padding: 25px;
+}
+
