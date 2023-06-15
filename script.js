@@ -104,11 +104,14 @@ const removePlayer = async (playerId) => {
 const renderAllPlayers = (playerList) => {
     try {
         const players = fetchAllPlayers();
+
         players.innerHTML = '';
+        //for each player card loop
         playerList.forEach((player) => {
 
             const puppyElement = document.createElement('div')
             puppyElement.classList.add('player');
+
             puppyElement.innerHTML = `
             <h2>${player.name}</h2>
             <p> Breed: ${player.breed}</p>
@@ -123,6 +126,7 @@ const renderAllPlayers = (playerList) => {
             `;
 
             playerContainer.appendChild(puppyElement);
+        
         });
     }
 

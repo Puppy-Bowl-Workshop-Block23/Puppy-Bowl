@@ -48,6 +48,7 @@ border-radius: 5px;
 font-size: 14pt;
 }
 
+
 /*new player added to roster*/
 .newPlayerFromForm { 
   font-family: 'Abril Fatface', cursive;
@@ -108,10 +109,16 @@ font-size: 14pt;
   background-color: black;
 }
 
-/* padding for all rendered players*/
-.player{
-  padding: 25px;
+/*player container styling*/
+#all-players-container {
+  display: grid;
+  height: 20px;
+  align-content: normal;
+  grid-template-columns: auto auto auto;
+  gap: 40px;
+  padding: 5%;
+  font-family: 'Abril Fatface', cursive;
+  
 }
-
 
 
