@@ -1,6 +1,44 @@
-//Block 23: Puppy Bowl
 
+//Block 23: Puppy Bowl 
+
+/*
+    Requirements:
+    
+    * GitHub Project
+        - Detailed planning tickets with task descriptions for each one
+        - Demonstration that each team member made some contribution on the planning of tickets.
+        - Each student in the pair must have at least one commit towards the final result, in separate branches
+
+        - A Github repository containing all relevant code for the project
+        - Updated Github repository with new commits
+
+
+    * HTML Front-end Requirements   
+        - A full HTML document with two div's in which to dynamically render content
+        - One div as a new Puppy Bowl player form input
+        - One div in which to render all current Puppy Bowl participants 
+
+
+    * CSS Front-end Requirements
+        - Form is styled and easy to use
+        - All Puppy Bowl players are rendered on card elements with their information
+
+    * JavaScript Requirements
+        - Use the DOM to generate and manipulate HTML and styles according to the requirements
+        - Use functions to isolate and re-use code
+        - Use ES6 modules to export and import methods and properties
+        - Demonstrates the use of fetch, async, and await to leverage CRUD against a REST API to perform common functions of a website
+
+    * Functionality Requirements
+        - Fetching and rendering all puppy players in the browser
+        - Viewing a single puppy player and their details
+        - Remove a puppy from the roster
+
+*/
+
+//get div's from html, assigning them a variable
 const playerContainer = document.getElementById("all-players-container");
+
 
 const cohortName = "2302-ACC-CT-WEB-PT-B";  //our cohort, assigned to a variable
 
@@ -33,6 +71,7 @@ const fetchSinglePlayer = async (playerId) => {
 
 const removePlayer = async (playerId) => {
     try {
+
       fetch(`https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/${id}`,{
         method: "Delete",
       })
@@ -44,6 +83,7 @@ const removePlayer = async (playerId) => {
         if(playerElement) {
             playerElement.remove();
         }
+
     } catch (err) {
         console.error(
             `Whoops, trouble removing player #${playerId} from the roster!`,
@@ -78,11 +118,14 @@ const removePlayer = async (playerId) => {
 const renderAllPlayers = (playerList) => {
     try {
         const players = fetchAllPlayers();
+
         players.innerHTML = '';
+
         playerList.forEach((player) => {
 
             const puppyElement = document.createElement('div')
             puppyElement.classList.add('player');
+
             puppyElement.innerHTML = `
             <h2>${player.name}</h2>
             <p> Breed: ${player.breed}</p>
@@ -97,6 +140,7 @@ const renderAllPlayers = (playerList) => {
             `;
 
             playerContainer.appendChild(puppyElement);
+
         });
     }
 
@@ -113,6 +157,7 @@ const renderAllPlayers = (playerList) => {
 
 //Create a Form, and Render a Player, when form is filled out
 const addNewPlayerToServer = async (playerObj) =>{
+
     try {
         const response = await fetch(`${API_URL}/players`, {
             method: "POST",
@@ -199,8 +244,98 @@ const renderNewPlayerForm = () => {
       });
     } catch (error) {
       console.log("Error", error);
+
+    try {
+        const response = await fetch(`${API_URL}/players`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(playerObj),
+          });
+
+       const result = await response.json();  //await the api variable you fetched to, to json , assigning it to a result variable 
+       console.log(result); //console.log result 
+    } catch (error) {
+        console.log("Error", error);
     }
-  };
+};
+
+const renderNewPlayerForm = () => {
+  try {
+    const newPlayerForm = document.getElementById("new-player-form");
+    const playerInfoContainer = document.getElementById("player-info-container");
+
+    newPlayerForm.innerHTML = `
+      <form class="newFormEntry" id="moreStyles" autocomplete="on">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" />
+
+        <label for="breed">Breed:</label>
+        <input type="text" name="breed" id="breed" />
+
+        <label for="cohortId">Cohort ID:</label>
+        <input type="text" name="cohortId" id="cohortId" />
+
+        <label for="status">Status:</label>
+        <input type="text" name="status" id="status" />
+
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" name="imageUrl" id="image-url" />
+        
+        <label for="teamId">Team ID:</label>
+        <input type="text" name="teamId" id="teamId" />
+
+        <button type="submit" id="submitButton">Submit</button>
+      </form>   
+    `;
+
+    newPlayerForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const newName = document.getElementById("name").value;
+      const newBreed = document.getElementById("breed").value;
+      const newCohortId = document.getElementById("cohortId").value;;
+      const newStatus = document.getElementById("status").value;
+      const newImageUrl = document.getElementById("image-url").value;
+      const newTeamId = document.getElementById("teamId").value;
+      
+      const player = {
+        name: newName,
+        breed: newBreed,
+        cohortId: newCohortId,
+        imageUrl: newImageUrl,
+        status: newStatus,
+        teamId: newTeamId
+      };
+
+      try {
+        await addNewPlayerToServer(player);
+        console.log("New Player Has Been Added");
+
+        // New Puppy Player info displayed
+        playerInfoContainer.innerHTML = `
+          <p class="newPlayerFromForm">New Player Has Been Added To The Roster</p>
+          <p class="infoNewPlayer"><em>Name:</em> ${player.name}</p>
+          <p class="infoNewPlayer"><em>Breed:</em> ${player.breed}</p>
+          <p class="infoNewPlayer"><em>CohortId:</em> ${player.cohortId}</p>
+          <img src=${player.imageUrl} width="300" height="600">
+          <p class="infoNewPlayer"><em>Status:</em> ${player.status}</p>
+          <p class="infoNewPlayer"><em>Team Id:</em> ${player.teamId}</p>
+          <button class="details-button">See Details</button>
+          <button class="delete-button">Remove from roster</button>
+      
+        `;
+        
+        playerContainer.appendChild(playerInfoContainer);
+
+     
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
+
 
 
 //initiate the function
@@ -216,4 +351,7 @@ const init = async () => {
 }
 
 init();
+
+
+
 
