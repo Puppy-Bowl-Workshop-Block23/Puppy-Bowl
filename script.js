@@ -73,7 +73,7 @@ const removePlayer = async (playerId) => {
     try {
 
       fetch(`https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/${id}`,{
-        method: "Delete",
+        method: "DELETE",
       })
       
       const result = await response.text();
@@ -85,7 +85,7 @@ const removePlayer = async (playerId) => {
         }
 
     } catch (err) {
-        console.error(
+        console.log(
             `Whoops, trouble removing player #${playerId} from the roster!`,
             err
         );
@@ -145,7 +145,7 @@ const renderAllPlayers = (playerList) => {
     }
 
     catch (err) {
-        console.error('Uh oh, trouble rendering players!', err);
+        console.log('Uh oh, trouble rendering players!', err);
     }
 };
 
