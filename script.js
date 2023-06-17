@@ -239,7 +239,6 @@ const renderNewPlayerForm = () => {
     }
   };
 
-
 //initiate the function
 const init = async () => {
     try {
