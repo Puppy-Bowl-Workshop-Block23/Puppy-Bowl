@@ -1,5 +1,4 @@
 /*html*/
-
 * {
   padding: 0;
   margin: 0;
@@ -46,6 +45,13 @@ input {
 border: 2px solid black;
 border-radius: 5px;
 font-size: 14pt;
+}
+
+
+.img-container {
+  display: flex;
+  margin-left: 40px;
+  height: 200px;
 }
 
 
@@ -109,6 +115,7 @@ font-size: 14pt;
   background-color: black;
 }
 
+
 /*player container styling*/
 #all-players-container {
   display: grid;
@@ -123,7 +130,7 @@ font-size: 14pt;
 
 /*individual cards styling*/
 #all-players-container > div {
-  background-color: rgba(113, 93, 93, 0.339);
+  background-color: rgba(113, 93, 93, 0.295);
   text-align: center;
   padding: 20px 0;
   font-size: 20px;
