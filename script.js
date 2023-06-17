@@ -242,17 +242,15 @@ const renderNewPlayerForm = () => {
         `;
         
         playerContainer.appendChild(playerInfoContainer);
+
       } catch (error) {
         console.log("Error", error);
       }
     });
-     
   } catch (error) {
     console.log("Error", error);
   }
 };
-
-
 
 
 //initiate the function
